@@ -1,0 +1,54 @@
+def LCM(n1, n2): 
+    if(n1>n2): 
+        num = n1 
+        den = n2 
+    else: 
+        num = n2 
+        den = n1 
+    rem = num % den 
+    while(rem != 0): 
+        num = den 
+        den = rem 
+        rem = num % den 
+    gcd = den 
+    lcm = int(int(n1 * n2)/int(gcd)) 
+    return lcm 
+      
+      
+      
+      
+t = int(input())
+while(t!=0):
+    n = int(input())
+    arr = list(map(int,input().split()))
+    steps = set()
+    arr.insert(0,0) 
+    for i in range(1,n+1):
+        if(arr[i]==0):
+            continue
+        count = 0
+        current = i
+        block = i
+        while(True):
+            current = arr[current]
+            arr[block]=0
+            block=current
+            count+=1
+            if(current==i):
+                break
+        steps.add(count)
+
+    if(len(steps)==1):
+        for x in steps:
+            print(x)
+    else:
+        steps = list(steps)
+        n1 = steps[0] 
+        n2 = steps[1] 
+        lcm = LCM(n1, n2) 
+  
+        for i in range(2, len(steps)): 
+            lcm = LCM(lcm, steps[i]) 
+      
+    print(lcm) 
+    t-=1
